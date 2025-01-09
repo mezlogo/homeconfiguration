@@ -5,7 +5,8 @@ function load_plugins() {
     return 0
   fi
 
-  local _antifote_path="/usr/share/zsh-antidote/antidote.zsh"
+  # local _antifote_path="/usr/share/zsh-antidote/antidote.zsh"
+  local _antifote_path="$HOME/.antidote/antidote.zsh"
   if [ -f "$_antifote_path" ]; then
     # source "$_antifote_path"
     # antidote load "$ZDOTDIR/zsh_plugins.txt"
