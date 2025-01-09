@@ -8,4 +8,7 @@ exec stow --target=$HOME \
   test_extend_login_shell \
   test_extend_zsh zsh_interactive \
   tmux \
-  antidote
+  antidote \
+  hyprland \
+  waybar \
+  wofi
