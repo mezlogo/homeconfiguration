@@ -6,7 +6,17 @@ return {
 
 		configs.setup({
 			ensure_installed = {
-				"lua", "vim", "vimdoc", "query", "javascript", "typescript", "java", "html", "xml", "markdown", "markdown_inline"
+				"lua", "vim", "vimdoc", "query",
+				"javascript", "typescript",
+				"java", "kotlin", "groovy", "properties",
+				"html", "xml",
+				"markdown", "markdown_inline",
+				"json", "yaml",
+				"proto",
+				"bash", "nu",
+				"git_config", "gitignore",
+				"asm",
+				"dockerfile",
 			},
 			auto_install = true,
 			sync_install = false,
