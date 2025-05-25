@@ -8,6 +8,8 @@ mkdir -p ~/.zsh.d
 echo -e 'en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8' | sudo tee /etc/locale.gen
 sudo locale-gen
 
+sudo pacman -S --noconfirm --needed stow
+
 # XDG_DESKTOP_DIR="$HOME/Desktop"
 # XDG_DOCUMENTS_DIR="$HOME/Documents"
 # XDG_DOWNLOAD_DIR="$HOME/Downloads"

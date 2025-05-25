@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
 
-./init.sh
+yay -S --needed --noconfirm \
+	git openssh less \
+	btop nvtop \
+	bluez  bluez-utils blueman \
+	docker docker-compose \
+	tmux zellij \
+	zsh fish nushell \
+	neovim \
+	ripgrep fzf fd jq bat exo \
+	ttf-font-awesome \
+	waybar wofi dunst kitty \
+	obsidian \
+	visual-studio-code-bin \
+	brave-bin firefox \
+	keyd \
+	lsof
 
-exec stow --target=$HOME \
+stow --adopt --target=$HOME \
   extend_login_shell \
   extend_zsh \
   test_extend_login_shell \
