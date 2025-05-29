@@ -48,7 +48,7 @@ enable_user_services() {
 	done
 }
 
-enable_user_services ssh-agent.service keyd
+enable_user_services ssh-agent.service
 
 enable_system_services() {
 	for service in "$@"; do
@@ -56,4 +56,4 @@ enable_system_services() {
 	done
 }
 
-enable_system_services sshd docker
+enable_system_services keyd sshd docker
