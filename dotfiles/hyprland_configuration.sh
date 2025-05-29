@@ -48,3 +48,11 @@ enable_user_services() {
 }
 
 enable_user_services ssh-agent.service
+
+enable_system_services() {
+	for service in "$@"; do
+		sudo systemctl enable "$service"
+	done
+}
+
+enable_system_services sshd docker
