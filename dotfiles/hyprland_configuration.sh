@@ -16,6 +16,7 @@ yay -S --needed --noconfirm \
 	brave-bin firefox \
 	keyd \
 	light \
+	wl-clipboard cliphist \
 	lsof
 
 stow --adopt --target=$HOME \
