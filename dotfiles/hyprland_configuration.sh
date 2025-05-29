@@ -4,6 +4,7 @@ yay -S --needed --noconfirm \
 	git openssh less \
 	btop nvtop \
 	bluez  bluez-utils blueman \
+	pipewire wireplumber pipewire-pulse pavucontrol \
 	docker docker-compose \
 	tmux zellij \
 	zsh fish nushell \
@@ -56,4 +57,4 @@ enable_system_services() {
 	done
 }
 
-enable_system_services keyd sshd docker
+enable_system_services keyd sshd docker bluetooth
