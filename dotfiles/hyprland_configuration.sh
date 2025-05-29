@@ -38,4 +38,13 @@ add_groups() {
 		sudo usermod -aG "$group" "$USER"
 	done
 }
+
 add_groups wireshark libvirt docker video wheel
+
+enable_user_services() {
+	for service in "$@"; do
+		systemctl --user enable "$service"
+	done
+}
+
+enable_user_services ssh-agent.service
