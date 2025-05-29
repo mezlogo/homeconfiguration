@@ -15,6 +15,7 @@ yay -S --needed --noconfirm \
 	visual-studio-code-bin \
 	brave-bin firefox \
 	keyd \
+	light \
 	lsof
 
 stow --adopt --target=$HOME \
@@ -27,3 +28,14 @@ stow --adopt --target=$HOME \
   hyprland \
   waybar \
   wofi
+
+sudo stow --adopt --target=/ \
+  keyd_root
+
+
+add_groups() {
+	for group in "$@"; do
+		sudo usermod -aG "$group" "$USER"
+	done
+}
+add_groups wireshark libvirt docker video wheel
