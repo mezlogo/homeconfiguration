@@ -48,7 +48,7 @@ enable_user_services() {
 	done
 }
 
-enable_user_services ssh-agent.service
+enable_user_services ssh-agent.service keyd
 
 enable_system_services() {
 	for service in "$@"; do
