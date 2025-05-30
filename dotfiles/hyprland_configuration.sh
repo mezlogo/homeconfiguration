@@ -14,10 +14,14 @@ yay -S --needed --noconfirm \
 	waybar wofi dunst kitty \
 	obsidian \
 	visual-studio-code-bin \
-	brave-bin firefox \
+	brave-bin chromium firefox \
+	keepassxc \
 	keyd \
 	light \
 	wl-clipboard cliphist \
+	qt5-wayland qt6-wayland \
+	xdg-desktop-portal-hyprland \
+	grim slurp \
 	lsof
 
 stow --adopt --target=$HOME \
@@ -49,7 +53,7 @@ enable_user_services() {
 	done
 }
 
-enable_user_services ssh-agent.service
+enable_user_services ssh-agent.service pipewire wireplumber xdg-desktop-portal-hyprland
 
 enable_system_services() {
 	for service in "$@"; do
