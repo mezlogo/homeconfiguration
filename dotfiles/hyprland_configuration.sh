@@ -16,6 +16,7 @@ yay -S --needed --noconfirm \
 	visual-studio-code-bin \
 	brave-bin chromium firefox \
 	keepassxc \
+	hyprland hyprpolkitagent hyprutils xdg-desktop-portal-hyprland hyprpolkitagent \
 	keyd \
 	light \
 	wl-clipboard cliphist \
@@ -49,14 +50,16 @@ add_groups wireshark libvirt docker video wheel
 
 enable_user_services() {
 	for service in "$@"; do
+		echo "Trying to enable USER SERVICE $service"
 		systemctl --user enable "$service"
 	done
 }
 
-enable_user_services ssh-agent.service pipewire wireplumber xdg-desktop-portal-hyprland
+enable_user_services ssh-agent.service pipewire wireplumber xdg-desktop-portal-hyprland hyprpolkitagent
 
 enable_system_services() {
 	for service in "$@"; do
+		echo "Trying to enable SYSTEM SERVICE $service"
 		sudo systemctl enable "$service"
 	done
 }
