@@ -22,7 +22,7 @@ yay -S --needed --noconfirm \
 	qt5-wayland qt6-wayland \
 	xdg-desktop-portal-hyprland \
 	grim slurp \
-	lsof
+	lsof tree
 
 stow --adopt --target=$HOME \
   extend_login_shell \
