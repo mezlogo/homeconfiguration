@@ -23,6 +23,7 @@ yay -S --needed --noconfirm \
 	qt5-wayland qt6-wayland \
 	xdg-desktop-portal-hyprland \
 	grim slurp satty \
+	openconnect \
 	lsof tree
 
 stow --adopt --target=$HOME \
