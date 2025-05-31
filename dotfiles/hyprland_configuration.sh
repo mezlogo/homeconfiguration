@@ -22,7 +22,7 @@ yay -S --needed --noconfirm \
 	wl-clipboard cliphist \
 	qt5-wayland qt6-wayland \
 	xdg-desktop-portal-hyprland \
-	grim slurp \
+	grim slurp satty \
 	lsof tree
 
 stow --adopt --target=$HOME \
