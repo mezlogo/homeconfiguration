@@ -7,7 +7,6 @@ yay -S --needed --noconfirm \
 	networkmanager-openconnect \
 	network-manager-applet
 
-
 disable_system_services() {
 	for service in "$@"; do
 		echo "Trying to disable SYSTEM SERVICE $service"
@@ -15,7 +14,7 @@ disable_system_services() {
 	done
 }
 
-enable_system_services systemd-networkd
+enable_system_services systemd-networkd systemd-resolved
 
 enable_system_services() {
 	for service in "$@"; do
@@ -24,4 +23,4 @@ enable_system_services() {
 	done
 }
 
-enable_system_services NetworkManager systemd-resolved
+enable_system_services NetworkManager
