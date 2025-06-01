@@ -7,7 +7,7 @@ yay -S --needed --noconfirm \
 	pipewire wireplumber pipewire-pulse pavucontrol \
 	docker docker-compose \
 	tmux zellij \
-	zsh fish nushell \
+	zsh zsh-completions fish nushell \
 	neovim \
 	ripgrep fzf fd jq bat exo \
 	ttf-font-awesome nerd-fonts \
@@ -66,3 +66,22 @@ enable_system_services() {
 }
 
 enable_system_services keyd sshd docker bluetooth
+
+set_shell() {
+	if [ $# -eq 0 ]; then
+    		echo "Error: No shell provided as argument."
+		return
+	fi
+
+	desired_shell="$1"
+	current_shell=$(getent passwd "$USER" | cut -d: -f7)
+
+	if [ "$current_shell" != "$desired_shell" ]; then
+    		echo "Changing shell from $current_shell to $desired_shell"
+    		chsh -s "$desired_shell"
+	else
+    		echo "Shell is already set to $desired_shell"
+	fi
+}
+
+set_shell /usr/bin/zsh
