@@ -10,7 +10,7 @@ yay -S --needed --noconfirm \
 	zsh fish nushell \
 	neovim \
 	ripgrep fzf fd jq bat exo \
-	ttf-font-awesome \
+	ttf-font-awesome nerd-fonts \
 	waybar wofi dunst kitty \
 	obsidian \
 	visual-studio-code-bin \
@@ -24,7 +24,7 @@ yay -S --needed --noconfirm \
 	xdg-desktop-portal-hyprland \
 	grim slurp satty \
 	openconnect \
-	lsof tree
+	lsof tree ldns
 
 stow --adopt --target=$HOME \
   extend_login_shell \
