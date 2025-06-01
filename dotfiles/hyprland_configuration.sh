@@ -36,6 +36,7 @@ stow --adopt --target=$HOME \
   antidote \
   hyprland \
   waybar \
+  maven \
   wofi
 
 sudo stow --adopt --target=/ \
