@@ -16,6 +16,7 @@ yay -S --needed --noconfirm \
 	visual-studio-code-bin \
 	brave-bin chromium firefox \
 	keepassxc \
+	nekoray-bin \
 	hyprland hyprpolkitagent hyprutils xdg-desktop-portal-hyprland hyprpolkitagent \
 	keyd \
 	light \
