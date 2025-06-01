@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 yay -S --needed --noconfirm \
+	webkit2gtk-4.1 gcr \
 	nm-connection-editor \
 	networkmanager \
 	networkmanager-openconnect \
