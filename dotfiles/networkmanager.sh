@@ -14,7 +14,7 @@ disable_system_services() {
 	done
 }
 
-enable_system_services systemd-networkd systemd-resolved
+disable_system_services systemd-networkd systemd-resolved
 
 enable_system_services() {
 	for service in "$@"; do
