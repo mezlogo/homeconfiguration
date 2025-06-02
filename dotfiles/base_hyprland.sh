@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.theprofile.d
+mkdir -p $HOME/.profile.d
 mkdir -p $HOME/.zsh.d
 
 yay -S --needed --noconfirm \
@@ -37,18 +37,19 @@ yay -S --needed --noconfirm \
 stow --adopt --target=$HOME \
   extend_login_shell \
   extend_zsh \
+  zsh_interactive \
   extend_path \
   base_scripts \
   tmux \
   antidote \
   hyprland \
   waybar \
+  wofi \
   maven \
-  wofi
+  idea
 
 sudo stow --adopt --target=/ \
   keyd_root
-
 
 add_groups() {
 	for group in "$@"; do
