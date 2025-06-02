@@ -41,6 +41,7 @@ stow --adopt --target=$HOME \
   extend_path \
   base_scripts \
   tmux \
+  nvim \
   antidote \
   hyprland \
   waybar \
@@ -75,7 +76,7 @@ enable_system_services() {
 	done
 }
 
-enable_system_services keyd sshd docker bluetooth
+enable_system_services keyd sshd docker bluetooth rfkill-unblock@all
 
 set_shell() {
 	if [ $# -eq 0 ]; then
