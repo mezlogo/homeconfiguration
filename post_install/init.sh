@@ -4,6 +4,7 @@ mkdir -p ~/repos/{mezlogo,edu,mirrors}
 mkdir -p ~/{Downloads,Pictures,Desktop,Music,Pictures,Public,Templates,Videos}
 mkdir -p ~/.profile.d
 mkdir -p ~/.zsh.d
+mkdir -p ~/.local/bin
 
 echo -e 'en_US.UTF-8 UTF-8\nru_RU.UTF-8 UTF-8' | sudo tee /etc/locale.gen
 sudo locale-gen
