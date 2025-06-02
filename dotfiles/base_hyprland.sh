@@ -3,6 +3,7 @@
 yay -S --needed --noconfirm \
 	git openssh less \
 	btop nvtop \
+	zip unzip \
 	bluez  bluez-utils blueman \
 	pipewire wireplumber pipewire-pulse pavucontrol \
 	docker docker-compose \
