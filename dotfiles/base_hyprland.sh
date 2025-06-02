@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+mkdir -p $HOME/.local/bin
+mkdir -p $HOME/.theprofile.d
+mkdir -p $HOME/.zsh.d
+
 yay -S --needed --noconfirm \
 	git openssh less \
 	btop nvtop \
@@ -33,8 +37,8 @@ yay -S --needed --noconfirm \
 stow --adopt --target=$HOME \
   extend_login_shell \
   extend_zsh \
-  test_extend_login_shell \
-  test_extend_zsh zsh_interactive \
+  extend_path \
+  base_scripts \
   tmux \
   antidote \
   hyprland \
