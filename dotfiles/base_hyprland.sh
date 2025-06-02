@@ -25,7 +25,7 @@ yay -S --needed --noconfirm \
 	xdg-desktop-portal-hyprland \
 	grim slurp satty \
 	openconnect \
-	qemu-full samba \
+	qemu-full samba spice-gtk \
 	jdk21-openjdk openjdk21-src maven gradle \
 	lsof tree ldns
 
