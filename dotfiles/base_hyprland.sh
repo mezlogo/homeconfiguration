@@ -46,6 +46,8 @@ stow --adopt --target=$HOME \
   nvim \
   antidote \
   hyprland \
+  uwsm_agnostic \
+  electron_wayland \
   waybar \
   wofi \
   maven \
