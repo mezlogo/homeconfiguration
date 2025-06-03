@@ -14,6 +14,7 @@ yay -S --needed --noconfirm \
 	tmux zellij \
 	zsh zsh-completions fish nushell \
 	neovim \
+	socat \
 	ripgrep fzf fd jq bat exo \
 	ttf-font-awesome nerd-fonts \
 	waybar wofi dunst kitty \
@@ -22,6 +23,7 @@ yay -S --needed --noconfirm \
 	brave-bin chromium firefox \
 	keepassxc \
 	nekoray-bin \
+	wlr-randr \
 	hyprland hyprpolkitagent hyprutils xdg-desktop-portal-hyprland hyprpolkitagent \
 	keyd \
 	light \
