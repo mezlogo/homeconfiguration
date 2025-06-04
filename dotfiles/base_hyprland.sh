@@ -19,6 +19,7 @@ yay -S --needed --noconfirm \
 	ttf-font-awesome nerd-fonts \
 	waybar wofi dunst kitty \
 	obsidian \
+	telegram-desktop \
 	visual-studio-code-bin \
 	brave-bin chromium firefox \
 	keepassxc \
