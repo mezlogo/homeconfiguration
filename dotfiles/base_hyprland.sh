@@ -43,6 +43,7 @@ stow --adopt --target=$HOME \
   zsh_interactive \
   extend_path \
   base_scripts \
+  kitty \
   tmux \
   nvim \
   antidote \
