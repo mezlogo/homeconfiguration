@@ -15,6 +15,7 @@ yay -S --needed --noconfirm \
 	zsh zsh-completions fish nushell \
 	neovim \
 	socat \
+	wireshark-cli wireshark-qt \
 	ripgrep fzf fd jq bat exo \
 	ttf-font-awesome nerd-fonts \
 	waybar wofi dunst kitty \
