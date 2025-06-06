@@ -41,6 +41,7 @@ yay -S --needed --noconfirm \
 stow --adopt --target=$HOME \
   extend_login_shell \
   extend_zsh \
+  fish \
   zsh_interactive \
   extend_path \
   base_scripts \
