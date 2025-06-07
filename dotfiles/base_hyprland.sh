@@ -16,7 +16,7 @@ yay -S --needed --noconfirm \
 	neovim \
 	socat \
 	wireshark-cli wireshark-qt \
-	ripgrep fzf fd jq bat exo \
+	ripgrep fzf fd jq bat eza git-delta \
 	ttf-font-awesome nerd-fonts \
 	waybar wofi dunst kitty \
 	obsidian \
