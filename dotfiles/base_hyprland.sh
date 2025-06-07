@@ -12,7 +12,7 @@ yay -S --needed --noconfirm \
 	pipewire wireplumber pipewire-pulse pavucontrol \
 	docker docker-compose \
 	tmux zellij \
-	zsh zsh-completions fish nushell \
+	zsh zsh-completions fish fisher nushell \
 	neovim \
 	socat \
 	wireshark-cli wireshark-qt \
