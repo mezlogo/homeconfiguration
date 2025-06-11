@@ -14,6 +14,7 @@ yay -S --needed --noconfirm \
 	tmux zellij \
 	zsh zsh-completions fish fisher nushell \
 	neovim \
+	tree-sitter-cli \
 	socat \
 	wireshark-cli wireshark-qt \
 	ripgrep fzf fd jq bat eza git-delta \
