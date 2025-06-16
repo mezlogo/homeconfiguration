@@ -28,7 +28,7 @@ yay -S --needed --noconfirm \
 	keepassxc \
 	nekoray-bin \
 	wlr-randr \
-	hyprland hyprpolkitagent hyprutils xdg-desktop-portal-hyprland hyprpolkitagent \
+	hyprland hyprpolkitagent hyprutils xdg-desktop-portal-hyprland \
 	keyd \
 	light \
 	wl-clipboard cliphist \
