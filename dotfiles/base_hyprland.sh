@@ -28,6 +28,7 @@ yay -S --needed --noconfirm \
 	keepassxc \
 	nekoray-bin \
 	wlr-randr \
+	uwsm libnewt \
 	hyprland hyprpolkitagent hyprutils xdg-desktop-portal-hyprland \
 	keyd \
 	light \
@@ -105,4 +106,4 @@ set_shell() {
 	fi
 }
 
-set_shell /usr/bin/zsh
+set_shell /usr/bin/fish

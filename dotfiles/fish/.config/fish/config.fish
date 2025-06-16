@@ -11,3 +11,5 @@ if status is-interactive
 	bind -M insert shift-tab complete
 	bind -M insert tab complete-and-search
 end
+
+fish_add_path -g ~/.local/bin

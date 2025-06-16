@@ -1,0 +1,22 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="CheckForUpdate">
+      <i c="1" l="1750113300660" />
+    </e>
+    <e n="CreateDesktopEntry">
+      <i c="1" l="1750113295495" />
+    </e>
+    <e n="EditorBackSpace">
+      <i c="1" l="1750113320735" />
+    </e>
+    <e n="EditorDeleteToWordStart">
+      <i c="3" l="1750113320757" />
+    </e>
+    <e n="WelcomeScreen.Settings">
+      <i c="2" l="1750113333804" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.welcomeScreen.WelcomeScreenComponentFactory$4">
+      <i c="4" l="1750113332802" />
+    </e>
+  </component>
+</application>
