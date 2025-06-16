@@ -12,6 +12,7 @@ yay -S --needed --noconfirm \
 	pipewire wireplumber pipewire-pulse pavucontrol \
 	docker docker-compose \
 	tmux zellij \
+	ffmpeg wf-recorder mpv \
 	zsh zsh-completions fish fisher nushell \
 	neovim \
 	tree-sitter-cli \
