@@ -106,4 +106,4 @@ set_shell() {
 	fi
 }
 
-set_shell /usr/bin/fish
+set_shell /usr/bin/zsh
