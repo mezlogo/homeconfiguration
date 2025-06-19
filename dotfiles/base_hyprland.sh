@@ -18,7 +18,7 @@ yay -S --needed --noconfirm \
 	tree-sitter-cli \
 	socat \
 	wireshark-cli wireshark-qt \
-	ripgrep fzf fd jq bat eza git-delta yazi zoxide duf dust \
+	ripgrep fzf fd jq bat eza git-delta yazi zoxide duf dust xh dua tokei \
 	ttf-font-awesome nerd-fonts \
 	waybar wofi dunst kitty \
 	obsidian \
