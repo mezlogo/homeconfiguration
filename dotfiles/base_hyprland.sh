@@ -38,8 +38,8 @@ yay -S --needed --noconfirm \
 	grim slurp satty \
 	openconnect \
 	qemu-full samba spice-gtk virt-viewer \
-	jdk21-openjdk openjdk21-src maven gradle \
-	lsof tree ldns
+	jdk17-openjdk jdk21-openjdk openjdk21-src maven gradle \
+	lsof tree ldns lnav
 
 stow --adopt --target=$HOME \
   extend_login_shell \
