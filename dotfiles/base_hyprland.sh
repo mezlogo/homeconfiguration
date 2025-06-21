@@ -39,7 +39,7 @@ yay -S --needed --noconfirm \
 	openconnect \
 	qemu-full samba spice-gtk virt-viewer \
 	jdk17-openjdk jdk21-openjdk openjdk21-src maven gradle \
-	lsof tree ldns lnav
+	lsof tree ldns lnav sqlite async-profiler ctags
 
 stow --adopt --target=$HOME \
   extend_login_shell \
