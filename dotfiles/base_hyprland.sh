@@ -78,7 +78,7 @@ enable_user_services() {
 	done
 }
 
-enable_user_services ssh-agent.service pipewire wireplumber xdg-desktop-portal-hyprland hyprpolkitagent
+enable_user_services ssh-agent.service xdg-desktop-portal-hyprland hyprpolkitagent pipewire pipewire-pulse wireplumber
 
 enable_system_services() {
 	for service in "$@"; do
