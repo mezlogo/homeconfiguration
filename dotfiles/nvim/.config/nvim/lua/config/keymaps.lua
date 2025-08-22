@@ -1,9 +1,86 @@
-vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent dir in Oil" })
-vim.keymap.set("n", "gl", function()
-	vim.diagnostic.open_float()
-end, { desc = "Open parent dir in Oil" })
-vim.keymap.set("n", "<leader>cf", function()
-	require("conform").format({
-		lsp_format = "fallback",
-	})
-end, { desc = "Format current file" })
+-- Set <space> as the leader key
+-- See `:help mapleader`
+-- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+local function opts(description)
+  return {
+    noremap = true,
+    silent = true,
+    desc = description,
+  }
+end
+
+-- Took from https://github.com/Sin-cy/dotfiles/blob/main/nvim/.config/nvim/lua/sethy/core/keymaps.lua
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts("moves lines down in visual selection"))
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts("moves lines up in visual selection"))
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz", opts("move down in buffer with cursor centered"))
+vim.keymap.set("n", "<C-u>", "<C-u>zz", opts("move up in buffer with cursor centered"))
+vim.keymap.set("n", "n", "nzzzv", opts("next search result with cursor centered"))
+vim.keymap.set("n", "N", "Nzzzv", opts("prev search result with cursor centered"))
+
+vim.keymap.set("v", "<", "<gv", opts("shift to the left selected lines"))
+vim.keymap.set("v", ">", ">gv", opts("shift to the right selected lines"))
+vim.keymap.set("n", "x", '"_x', opts("prevent x delete from registering when next paste"))
+
+--vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+--    { desc = "Replace word cursor is on globally" })
+
+-- Other sources
+vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", opts("turn off search highlight"))  -- Clear with Escape
+
+-- Use <Esc> to exit terminal mode
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+
+-- Map <A-j>, <A-k>, <A-h>, <A-l> to navigate between windows in any modes
+vim.keymap.set({ "t", "i" }, "<A-h>", "<C-\\><C-n><C-w>h")
+vim.keymap.set({ "t", "i" }, "<A-j>", "<C-\\><C-n><C-w>j")
+vim.keymap.set({ "t", "i" }, "<A-k>", "<C-\\><C-n><C-w>k")
+vim.keymap.set({ "t", "i" }, "<A-l>", "<C-\\><C-n><C-w>l")
+vim.keymap.set({ "n" }, "<A-h>", "<C-w>h")
+vim.keymap.set({ "n" }, "<A-j>", "<C-w>j")
+vim.keymap.set({ "n" }, "<A-k>", "<C-w>k")
+vim.keymap.set({ "n" }, "<A-l>", "<C-w>l")
+
+-- Map treesitter based keymaps
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function()
+    local ok, _ = pcall(vim.treesitter.get_parser)
+    if ok then
+      vim.keymap.set('n', 'zM', require('myparser').fold_method_bodies, opts("fold method bodies only"))
+      vim.keymap.set('n', ']m', require('myparser').goto_next_method, opts("goto next method declaration line"))
+      vim.keymap.set('n', '[m', require('myparser').goto_prev_method, opts("goto prev method declaration line"))
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(event)
+    -- LSP keymaps
+    local map = vim.keymap.set
+    local opts = { silent = true, buffer = event.buf }
+
+    -- map("n", "gd", vim.lsp.buf.definition, opts)
+    -- map("n", "gD", vim.lsp.buf.declaration, opts)
+    -- map("n", "gr", vim.lsp.buf.references, opts)        -- show usages
+    -- map("n", "gi", vim.lsp.buf.implementation, opts)    -- go to implementation
+    -- map("n", "K", vim.lsp.buf.hover, opts)              -- show signature/help
+    -- map("n", "gK", vim.lsp.buf.signature_help, opts)    -- signature help (if hover not enough)
+    --
+    -- -- Diagnostics
+    -- map("n", "<space>e", vim.diagnostic.open_float, opts)
+    -- map("n", "[d", vim.diagnostic.goto_prev, opts)
+    -- map("n", "]d", vim.diagnostic.goto_next, opts)
+    --
+    -- -- Auto-format on save (often forgotten)
+    map("n", "grf", vim.lsp.buf.format, opts)
+    --
+    -- -- Quick actions (often forgotten)
+    -- map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+    -- map("n", "<leader>rn", vim.lsp.buf.rename, opts)
+  end,
+})

@@ -29,6 +29,7 @@ yay -S --needed --noconfirm \
 	nekoray-bin \
 	wlr-randr \
 	uwsm libnewt \
+	sddm \
 	hyprland hyprpolkitagent hyprutils xdg-desktop-portal-hyprland \
 	keyd \
 	light \
@@ -87,7 +88,7 @@ enable_system_services() {
 	done
 }
 
-enable_system_services keyd sshd docker bluetooth rfkill-unblock@all
+enable_system_services keyd sshd docker bluetooth rfkill-unblock@all sddm
 
 set_shell() {
 	if [ $# -eq 0 ]; then
