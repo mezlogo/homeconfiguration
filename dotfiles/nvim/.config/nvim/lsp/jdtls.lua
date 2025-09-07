@@ -113,7 +113,7 @@ local home_dir = vim.env.HOME
 
 return {
   cmd = {
-    home_dir .. '/tools/jdtls/bin/jdtls',
+    'jdtls',
     '-configuration',
     get_jdtls_config_dir(),
     '-data',
