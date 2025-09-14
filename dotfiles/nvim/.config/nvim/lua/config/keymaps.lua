@@ -57,6 +57,10 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+local myfim = require('myfim')
+vim.keymap.set("n", "<leader>x", myfim.capture_text_then_call_fim_complition_then_insert_result)
+
+
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(event)
