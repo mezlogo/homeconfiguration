@@ -59,7 +59,6 @@ vim.api.nvim_create_autocmd('FileType', {
 
 local myfim = require('myfim')
 vim.keymap.set("n", "<leader>x", myfim.capture_text_then_call_fim_complition_then_insert_result, opts("generate code using whole file and FIM"))
-vim.keymap.set("i", "<c-x>", myfim.capture_text_then_call_fim_complition_then_insert_result, opts("generate code using whole file and FIM"))
 
 
 vim.api.nvim_create_autocmd('LspAttach', {
