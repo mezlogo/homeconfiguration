@@ -112,7 +112,6 @@ M.capture_text_then_call_fim_complition_then_insert_result = function()
   }
 
   M.call_curl(M.llm_fim_url, 'POST', headers, request, function(data)
-    print('result: ' .. data)
     if data then
       local payload = vim.json.decode(data)
       if payload and payload.choices and 0 < #payload.choices then
