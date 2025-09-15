@@ -105,7 +105,7 @@ async function parseFile(filepath: string): Promise<PromptRawData> {
     const result: PromptRawData = {
         system: '',
         user: '',
-        prefix: undefined,
+        prefix: '',
     };
     const content = await fsPromises.readFile(filepath, 'utf8');
     const lines = content.split('\n');
@@ -171,7 +171,7 @@ interface OpenAIResponse {
 }
 
 interface MessageRequest {
-    // system, user or assistent for prefix
+    // system, user or assistant for prefix
     role: string;
     // message content
     content: string;
@@ -210,7 +210,7 @@ function convertToRequest(args: InstructLlmArgs, prompts: PromptRawData): OpenAI
     }
     if (prompts.prefix) {
         messages.push({
-            role: 'assistent',
+            role: 'assistant',
             content: prompts.prefix,
             prefix: true,
         });
