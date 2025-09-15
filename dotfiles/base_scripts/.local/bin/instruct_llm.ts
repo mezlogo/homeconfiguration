@@ -53,7 +53,7 @@ function parseArguments(args: Array<string>): InstructLlmArgs {
         maxTokens: 1000,
         seed: 42,
     };
-    const result: InstructLlmArgs = {...defaults};
+    const result: InstructLlmArgs = { ...defaults };
     for (let i = 2; i < args.length; i++) {
         const arg = args[i];
         if (arg.startsWith('--')) {
@@ -117,7 +117,7 @@ async function parseFile(filepath: string): Promise<PromptRawData> {
             result[currentKey] += line + '\n';
         }
     }
-    
+
     // remove blank spaces for each field
     for (const key in result) {
         if (result[key]) {
@@ -130,6 +130,45 @@ async function parseFile(filepath: string): Promise<PromptRawData> {
 
 
 // OpenAI api block
+
+interface OpenAIResponseUsage {
+    // example: 109
+    prompt_tokens: number;
+    // example: 113
+    total_tokens: number;
+    // example: 4
+    completion_tokens: number;
+}
+
+interface OpenAIResponseChoiceMessage {
+    // example: "assistant", "system", "user"
+    role: string;
+    // example: "Let's break down"
+    content: string;
+    // DONT KNOW YET
+    tool_calls: null,
+}
+
+interface OpenAIResponseChoice {
+    // example: 0
+    index: number;
+    // example: "length", "stop"
+    finish_reason: string,
+    message: OpenAIResponseChoiceMessage;
+}
+
+interface OpenAIResponse {
+    // example: "9fca2e1dfef547238a8e68970b624411"
+    id: string;
+    // example: 1757969130
+    created: number;
+    // example: "codestral-latest"
+    model: string;
+    // example: "chat.completion"
+    object: string;
+    usage: OpenAIResponseUsage;
+    choices: Array<OpenAIResponseChoice>;
+}
 
 interface MessageRequest {
     // system, user or assistent for prefix
@@ -200,11 +239,14 @@ async function callLlm(args: InstructLlmArgs, request: OpenAIRequest): Promise<s
         },
         body: JSON.stringify(request),
     });
-    const data = await response.json();
+    const data: OpenAIResponse = await response.json();
     // when content is not presented throw an error
     if (!data.choices || !data.choices[0] || !data.choices[0].message || !data.choices[0].message.content) {
         throw new Error('Error: content is not presented in response: ' + JSON.stringify(data));
     }
+    const summarize = `input: ${data.usage.prompt_tokens} output: ${data.usage.completion_tokens} finish_reason: ${data.choices[0].finish_reason}`
+    console.error(summarize);
+
     return data.choices[0].message.content;
 }
 
@@ -239,7 +281,7 @@ async function main(args: Array<string>) {
         printUsage();
         return;
     }
-    
+
     // test file exist and readable using node js file io
     await fsPromises.access(filepath, fsPromises.constants.R_OK);
     const prompt = await parseFile(filepath);
@@ -268,4 +310,3 @@ async function main(args: Array<string>) {
 
 // EXECUTION BLOCK
 main(process.argv);
-
