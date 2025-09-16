@@ -9,7 +9,7 @@ M.get_file_name_before_and_after_text = function()
   local filename = vim.api.nvim_buf_get_name(bufnr):match("([^/\\]+)$") or ""
 
   local cursor = vim.api.nvim_win_get_cursor(0)
-  local current_row, current_col = cursor[1] - 1, cursor[2] + 1
+  local current_row, current_col = cursor[1] - 1, cursor[2]
 
   local last_row = vim.api.nvim_buf_line_count(0)
   local last_col = #vim.api.nvim_buf_get_lines(0, last_row - 1, last_row, false)[1]
