@@ -37,6 +37,8 @@ interface InstructLlmArgs {
     maxTokens: number;
     // default is 42
     seed: number;
+    // include '# @ASSISTANT', default is false
+    isIncludeAssistant: boolean;
 }
 
 /**
@@ -54,6 +56,7 @@ function parseArguments(args: Array<string>): InstructLlmArgs {
         model: 'codestral-latest',
         maxTokens: 1000,
         seed: 42,
+        isIncludeAssistant: false,
     };
     const result: InstructLlmArgs = { ...defaults };
     for (let i = 2; i < args.length; i++) {
@@ -384,6 +387,9 @@ async function main(args: Array<string>) {
     if (parsedArgs.outputFile) {
         await fsPromises.writeFile(parsedArgs.outputFile, response);
     } else {
+        if (parsedArgs.isIncludeAssistant) {
+            console.log('# @ASSISTANT')
+        }
         console.log(response);
     }
 }
