@@ -3,14 +3,16 @@
 import fsPromises from 'fs/promises';
 
 /**
- * Highlevel CLI tool description.
+ * CLI tool for reading an input file and extracting OpenAI request: system, user and assistant proompts.
+ *
+ * Highlevel flow:
  * 1. parse command line arguments
  * 2. merge config in following order. Futher overwrites. Oreder: defaults, environment variable and arguments
- * 3. read file
- * 4. parse markdown: extract SYSTEM, USER and PREFIX prompts
- * 5. make http call using OpenAI
+ * 3. read given input file
+ * 4. extract prompts in order: optional COMMENT, optional SYSTEM, required USER, optional PREFIX and optional ASSISTANT
+ * 5. make http call using OpenAI API schema
  * 6. parse response and extract content
- * 7. write output to file
+ * 7. write output to stdout or given output file
  *
  * RULES:
  * - use node js standart library
@@ -72,62 +74,123 @@ function parseArguments(args: Array<string>): InstructLlmArgs {
 
 // Prompt build block
 
-interface PromptRawData {
-    system: string;
+interface PromptRawDataInteraction {
+    // Each interactions starts with user request
     user: string;
-    prefix: string | undefined;
+    // Each interaction could have a prefix.
+    prefix?: string;
+    // When interaction is done it should contain a reponse
+    assistan?: string;
+}
+
+interface PromptRawData {
+    // optional system prompt
+    system?: string;
+    // required array of chat interactions
+    interactions: Array<PromptRawDataInteraction>;
 }
 
 /**
 Extract prompt from file content.
 File has following structure:
 ```markdown
-# SYSTEM
+# @SYSTEM
 Here a system prompt.
 It could be multiline and even contain code.
-# USER
+# @USER
 This block contains a user prompt.
 It could be multiline as well.
-# PREFIX
+# @PREFIX
 This block is optional.
 It could be multiline againg.
+# @ASSISTANT
+Hello, I'm a helpful assistant.
+# @USER
+Some next message.
 ```
 It should be:
 ```json
 {
     "system": "Here a system prompt.\n It could be multiline and even contain code.",
-    "user": "This block contains a user prompt.\n It could be multiline as well.",
-    "prefix": "This block is optional.\n It could be multiline againg."
+    "interactions": [{
+        "user": "This block contains a user prompt.\n It could be multiline as well.",
+        "prefix": "This block is optional.\n It could be multiline againg.",
+        "assistant": "Hello, I'm a helpful assistant.
+    }, {"user": "Some next message."}]
 }
 ```
  */
 async function parseFile(filepath: string): Promise<PromptRawData> {
-    const result: PromptRawData = {
-        system: '',
-        user: '',
-        prefix: '',
-    };
+    const interactions: Array<PromptRawDataInteraction> = [];
+    const result: PromptRawData = { system: '', interactions, };
+    let currentInteraction: PromptRawDataInteraction = { user: 'NOT_INITIAILZED', };
+
+    const SYSTEM_PROMPT = "# @SYSTEM";
+    const USER_PROMPT = "# @USER";
+    const PREFIX_PROMPT = "# @PREFIX";
+    const ASSISTANT_PROMPT = "# @ASSISTANT";
+
     const content = await fsPromises.readFile(filepath, 'utf8');
     const lines = content.split('\n');
-    let currentKey: string | undefined = undefined;
+
+    let currentState = '';
+    // Loop each line and fill each field
     for (const line of lines) {
-        if (line.startsWith('# ')) {
-            currentKey = line.substring(2).toLowerCase();
-        } else if (currentKey) {
-            result[currentKey] += line + '\n';
+        if (line.startsWith(SYSTEM_PROMPT)) {
+            currentState = 'system';
+            continue;
+        } else if (line.startsWith(USER_PROMPT)) {
+            currentState = 'user';
+            // initialize interaction and push to an array
+            currentInteraction = { user: '', assistan: '', prefix: '', };
+            interactions.push(currentInteraction);
+            continue;
+        } else if (line.startsWith(PREFIX_PROMPT)) {
+            currentState = 'prefix';
+            continue;
+        } else if (line.startsWith(ASSISTANT_PROMPT)) {
+            currentState = 'assistant';
+            continue;
+        }
+        // if currentState is empty, skip the line
+        if (!currentState) {
+            continue;
+        }
+        if (currentState === 'system') {
+            // if currentState is system, append to system
+            result.system += line + '\n';
+        } else if (currentState === 'user') {
+            // if currentState is user, append to user
+            currentInteraction.user += line + '\n';
+        } else if (currentState === 'prefix') {
+            // if currentState is prefix, append to prefix
+            currentInteraction.prefix += line + '\n';
+        } else if (currentState === 'assistant') {
+            // if currentState is assistant, append to assistant
+            currentInteraction.assistan += line + '\n';
         }
     }
 
-    // remove blank spaces for each field
-    for (const key in result) {
-        if (result[key]) {
-            result[key] = result[key].trim();
+
+    // remove blank spaces for system field if presented
+    if (result.system) {
+        result.system = result.system.trim();
+    }
+    // remove blank spaces for each interaction
+    for (const interaction of interactions) {
+        interaction.user = interaction.user.trim();
+        if (interaction.prefix) {
+            interaction.prefix = interaction.prefix.trim();
+        }
+        if (interaction.assistan) {
+            interaction.assistan = interaction.assistan.trim();
         }
     }
+   
 
     return result;
-}
 
+}
 
 // OpenAI api block
 
@@ -193,7 +256,10 @@ interface OpenAIRequest {
     messages: Array<MessageRequest>;
 }
 
-// Convert data to request
+/**
+ * Generate messages for OpenAI api.
+ * When interaction already has assistant response IGNORE prefix if any.
+ */
 function convertToRequest(args: InstructLlmArgs, prompts: PromptRawData): OpenAIRequest {
     const messages: Array<MessageRequest> = [];
     if (prompts.system) {
@@ -202,19 +268,26 @@ function convertToRequest(args: InstructLlmArgs, prompts: PromptRawData): OpenAI
             content: prompts.system,
         });
     }
-    if (prompts.user) {
+
+    for (const interaction of prompts.interactions) {
         messages.push({
             role: 'user',
-            content: prompts.user,
+            content: interaction.user,
         });
+        if (interaction.assistan) {
+            messages.push({
+                role: 'assistant',
+                content: interaction.assistan,
+            });
+        } else if (interaction.prefix) {
+            messages.push({
+                role: 'assistant',
+                content: interaction.prefix,
+                prefix: true,
+            });
+        }
     }
-    if (prompts.prefix) {
-        messages.push({
-            role: 'assistant',
-            content: prompts.prefix,
-            prefix: true,
-        });
-    }
+
     return {
         model: args.model,
         temperature: args.temperature,
@@ -287,10 +360,17 @@ async function main(args: Array<string>) {
     const prompt = await parseFile(filepath);
 
     // test prompt is not empty
-    if (!prompt.system && !prompt.user) {
+    if (0 === prompt.interactions.length || !prompt.interactions[0].user) {
         console.error('Error: prompt is empty');
         return;
     }
+
+    // test last interaction HAS assistan
+    if (prompt.interactions[prompt.interactions.length - 1].assistan) {
+        console.error('Error: last interaction should not have assistant response');
+        return;
+    }
+
     const request = convertToRequest(parsedArgs, prompt);
 
     // test apiKey is presented
