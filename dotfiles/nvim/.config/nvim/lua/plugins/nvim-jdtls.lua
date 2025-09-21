@@ -5,13 +5,20 @@ local function config_nvim_jdtls()
   local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
   local workspace_dir = HOME .. '/.local/state/jdtls_workspace' .. project_name
 
+  local rootFileNames = {
+    'gradlew',
+    'settings.gradle.kts',
+    'mwnw',
+    '.git',
+  }
+
   local config = {
     cmd = {
       HOME .. '/tools/jdtls/bin/jdtls',
       '-configuration', HOME .. '/.cache/jdtls',
       '-data', workspace_dir,
     },
-    root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+    root_dir = vim.fs.dirname(vim.fs.find(rootFileNames, { upward = true })[1]),
   }
 
   local jdtls = require('jdtls')
@@ -20,8 +27,9 @@ end
 
 return {
   'mfussenegger/nvim-jdtls',
-  lazy = true,
-  enabled = false,
-  ft = 'java',
-  config = config_nvim_jdtls,
+  lazy = false,
+  -- enabled = true,
+  -- ft = 'java',
+  -- config = config_nvim_jdtls,
+  config = function() end,
 }
