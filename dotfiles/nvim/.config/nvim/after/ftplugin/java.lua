@@ -1,3 +1,5 @@
+local java_debug_path = vim.fn.stdpath('data') .. '/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar'
+
 local config = {
   name = "jdtls",
 
@@ -33,7 +35,9 @@ local config = {
   --
   -- If you don't plan on any eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {}
+    bundles = {
+      java_debug_path,
+    }
   },
 }
 require('jdtls').start_or_attach(config)
