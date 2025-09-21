@@ -1,4 +1,27 @@
-local java_debug_path = vim.fn.stdpath('data') .. '/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar'
+local function get_bundles()
+  local java_debug_path = vim.fn.stdpath('data') .. '/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar'
+
+  local bundles = {
+      java_debug_path,
+  }
+
+  local java_test_path = vim.fn.stdpath('data') .. '/mason/share/java-test/*.jar'
+  local java_test_bundles = vim.split(vim.fn.glob(java_test_path), "\n")
+  local excluded = {
+    "com.microsoft.java.test.runner-jar-with-dependencies.jar",
+    "jacocoagent.jar",
+  }
+
+
+  for _, java_test_jar in ipairs(java_test_bundles) do
+    local fname = vim.fn.fnamemodify(java_test_jar, ":t")
+    if not vim.tbl_contains(excluded, fname) then
+      table.insert(bundles, java_test_jar)
+    end
+  end
+
+  return bundles
+end
 
 local config = {
   name = "jdtls",
@@ -35,9 +58,7 @@ local config = {
   --
   -- If you don't plan on any eclipse.jdt.ls plugins you can remove this
   init_options = {
-    bundles = {
-      java_debug_path,
-    }
+    bundles = get_bundles()
   },
 }
 require('jdtls').start_or_attach(config)
