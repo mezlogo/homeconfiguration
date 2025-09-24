@@ -13,6 +13,8 @@ When everything is ok is just appends data as @ASSISTANT response.
 local M = {}
 
 M.llm_chat_max_tokens = 4000
+M.llm_chat_api_url = 'https://codestral.mistral.ai/v1/chat/completions'
+M.llm_chat_model_name = 'codestral-latest'
 
 -- util for executing programm
 M.exec_programm = function(cmd, args, stdoutCallback, stderrCallback)
@@ -60,7 +62,11 @@ M.call_chat = function()
   vim.cmd('write')
   local filename = vim.api.nvim_buf_get_name(0)
   local args = {
-    '--isIncludeAssistant', '--maxTokens', M.llm_chat_max_tokens, '--promptFile', filename
+    '--isIncludeAssistant',
+    '--maxTokens', M.llm_chat_max_tokens,
+    '--apiUrl', M.llm_chat_api_url,
+    '--model', M.llm_chat_model_name,
+    '--promptFile', filename,
   }
 
   local stdoutCallback = function(output)
@@ -84,6 +90,8 @@ end
 M.setup = function(opts)
   opts = opts or {}
   M.llm_chat_max_tokens = opts.llm_chat_max_tokens or M.llm_chat_max_tokens
+  M.llm_chat_api_url = opts.llm_chat_api_url or M.llm_chat_api_url
+  M.llm_chat_model_name = opts.llm_chat_model_name or M.llm_chat_model_name
 end
 
 return M
