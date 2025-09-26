@@ -13,6 +13,7 @@ return {
   filetypes = { 'kotlin' },
   cmd = { 'kotlin-lsp', '--stdio' },
   root_markers = {
+    '.git',
     'settings.gradle', -- Gradle (multi-project)
     'settings.gradle.kts', -- Gradle (multi-project)
     'pom.xml', -- Maven
