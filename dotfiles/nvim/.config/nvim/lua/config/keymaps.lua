@@ -88,3 +88,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- map("n", "<leader>rn", vim.lsp.buf.rename, opts)
   end,
 })
+
+vim.keymap.set("n", "R", "<Plug>(JqPlaygroundRunQuery)")
