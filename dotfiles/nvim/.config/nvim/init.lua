@@ -9,5 +9,6 @@ vim.cmd([[colorscheme kanagawa]])
 --   vim.lsp.enable('nvimls')
 -- end, {})
 
+vim.lsp.enable('jinja_lsp')
 vim.lsp.enable('kotlin_lsp')
 vim.lsp.enable('nvimls')
