@@ -38,7 +38,7 @@ yay -S --needed --noconfirm \
 	xdg-desktop-portal-hyprland \
 	grim slurp satty \
 	openconnect \
-    mise \
+    mise npm go rust cargo \
 	qemu-full samba spice-gtk virt-viewer \
 	jdk17-openjdk jdk21-openjdk openjdk21-src maven gradle \
     ltrace strace valgrind gcc make cmake clang ccls cppcheck splint uncrustify indent gdb lldb bear \
