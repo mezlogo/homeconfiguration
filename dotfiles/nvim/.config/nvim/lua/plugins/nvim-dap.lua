@@ -48,9 +48,11 @@ local function getDapKeyBindigsInLazyNvimTableFormat()
     { '<leader>do', function() require('dap').step_over() end, desc = 'Step over' },
     { '<leader>di', function() require('dap').step_into() end, desc = 'Step into' },
     { '<leader>dO', function() require('dap').step_out() end, desc = 'Step out' },
-    { '<leader>dr', function() require('dap').restart() end, desc = 'Restart debugging session' },
+    -- { '<leader>dR', function() require('dap').restart() end, desc = 'Restart debugging session' },
+    { '<leader>dR', ':DapNew<CR>', desc = 'Restart debugging session' },
+    { '<leader>dr', function() require('dap').run_last() end, desc = 'Run last session' },
     { '<leader>dq', function() require('dap').close() end, desc = 'Stop/close debugging session' },
-    { '<leader>dl', function() require('dap').repl.toggle() end, desc = 'Toggle REPL' },
+    { '<leader>dl', function() require('dap-view').toggle() end, desc = 'Toggle dap-view' },
   }
 end
 
@@ -63,7 +65,13 @@ return {
     "igorlfs/nvim-dap-view",
     ---@module 'dap-view'
     ---@type dapview.Config
-    opts = {},
+    opts = {
+      winbar = {
+        show = true,
+        sections = { "console", "watches", "scopes", "exceptions", "breakpoints", "threads", "repl" },
+        default_section = "console",
+      },
+    },
     dependencies = {
       'mfussenegger/nvim-dap',
     },
