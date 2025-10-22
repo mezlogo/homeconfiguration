@@ -29,7 +29,7 @@ vim.keymap.set("n", "x", '"_x', opts("prevent x delete from registering when nex
 --    { desc = "Replace word cursor is on globally" })
 
 -- Other sources
-vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", opts("turn off search highlight"))  -- Clear with Escape
+vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", opts("turn off search highlight")) -- Clear with Escape
 
 -- Use <Esc> to exit terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
@@ -58,34 +58,18 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 local myfim = require('myfim')
-vim.keymap.set("n", "<leader>x", myfim.capture_text_then_call_fim_complition_then_insert_result, opts("generate code using whole file and FIM"))
+vim.keymap.set("n", "<leader>x", myfim.capture_text_then_call_fim_complition_then_insert_result,
+  opts("generate code using whole file and FIM"))
 
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(event)
-    -- LSP keymaps
     local map = vim.keymap.set
     local opts = { silent = true, buffer = event.buf }
 
-    -- map("n", "gd", vim.lsp.buf.definition, opts)
-    -- map("n", "gD", vim.lsp.buf.declaration, opts)
-    -- map("n", "gr", vim.lsp.buf.references, opts)        -- show usages
-    -- map("n", "gi", vim.lsp.buf.implementation, opts)    -- go to implementation
-    -- map("n", "K", vim.lsp.buf.hover, opts)              -- show signature/help
-    -- map("n", "gK", vim.lsp.buf.signature_help, opts)    -- signature help (if hover not enough)
-    --
-    -- -- Diagnostics
-    -- map("n", "<space>e", vim.diagnostic.open_float, opts)
-    -- map("n", "[d", vim.diagnostic.goto_prev, opts)
-    -- map("n", "]d", vim.diagnostic.goto_next, opts)
-    --
-    -- -- Auto-format on save (often forgotten)
+    map("n", "gK", vim.lsp.buf.signature_help, opts)    -- signature help (if hover not enough)
     map("n", "grf", vim.lsp.buf.format, opts)
-    --
-    -- -- Quick actions (often forgotten)
-    -- map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    -- map("n", "<leader>rn", vim.lsp.buf.rename, opts)
   end,
 })
 

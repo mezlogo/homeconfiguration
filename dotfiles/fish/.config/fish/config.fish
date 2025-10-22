@@ -1,3 +1,7 @@
+function user_key_bindings
+    bind \cl clear
+end
+
 if status is-interactive
     set -g fish_greeting
 
@@ -10,6 +14,8 @@ if status is-interactive
 
     bind -M insert shift-tab complete
     bind -M insert tab complete-and-search
+
+    user_key_bindings
 
     eval "$(mise activate)"
 end
