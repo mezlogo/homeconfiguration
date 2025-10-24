@@ -1,3 +1,23 @@
+---@return string|nil path to the eclipse-formatter.xml in recursive search from cwd
+local function find_eclipse_formatter_xml()
+  local target = "eclipse-formatter.xml"
+
+  local cwd = vim.fn.getcwd()
+  if not cwd or cwd == "" then
+    return nil
+  end
+
+  local path = vim.fs.find(function(name, _)
+    return name == target
+  end, { path = cwd, type = "file" })
+
+  if #path == 0 then
+    return nil
+  end
+
+  return path[1]
+end
+
 --- Bind nvim-jdtls functions for testing
 --- test class, test method, generate test, go to test, go to subject
 local function set_jdtls_test_keymap()
@@ -61,7 +81,7 @@ local function get_jdtls_cache_dir(root_dir)
   -- Use XDG_CACHE_HOME if set, otherwise default to ~/.cache
   local xdg_cache = os.getenv("XDG_CACHE_HOME")
   local cache_home = xdg_cache and xdg_cache ~= "" and xdg_cache
-  or (os.getenv("HOME") and os.getenv("HOME") .. "/.cache")
+      or (os.getenv("HOME") and os.getenv("HOME") .. "/.cache")
 
   if not cache_home then
     error("Could not determine cache directory: $HOME is not set")
@@ -86,52 +106,66 @@ local function get_jdtls_cache_dir(root_dir)
   return jdtls_dir
 end
 
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-local jdtls_cache_dir = get_jdtls_cache_dir(project_name)
 
-local config = {
-  name = "jdtls",
+local function main()
+  local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+  local jdtls_cache_dir = get_jdtls_cache_dir(project_name)
+  local formatter_path = find_eclipse_formatter_xml()
 
-  -- `cmd` defines the executable to launch eclipse.jdt.ls.
-  -- `jdtls` must be available in $PATH and you must have Python3.9 for this to work.
-  --
-  -- As alternative you could also avoid the `jdtls` wrapper and launch
-  -- eclipse.jdt.ls via the `java` executable
-  -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
+  local config = {
+    name = "jdtls",
 
-  cmd = {
-    "jdtls",
-    "-data", jdtls_cache_dir,
-  },
+    -- `cmd` defines the executable to launch eclipse.jdt.ls.
+    -- `jdtls` must be available in $PATH and you must have Python3.9 for this to work.
+    --
+    -- As alternative you could also avoid the `jdtls` wrapper and launch
+    -- eclipse.jdt.ls via the `java` executable
+    -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 
-
-  -- `root_dir` must point to the root of your project.
-  -- See `:help vim.fs.root`
-  root_dir = vim.fs.root(0, {'gradlew', '.git', 'mvnw', 'settings.gradle', 'settings.gradle.kts'}),
+    cmd = {
+      "jdtls",
+      "-data", jdtls_cache_dir,
+    },
 
 
-  -- Here you can configure eclipse.jdt.ls specific settings
-  -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-  -- for a list of options
-  settings = {
-    java = {
-      updateBuildConfiguration = "interactive",
-    }
-  },
+    -- `root_dir` must point to the root of your project.
+    -- See `:help vim.fs.root`
+    root_dir = vim.fs.root(0, { 'gradlew', '.git', 'mvnw', 'settings.gradle', 'settings.gradle.kts' }),
 
 
-  -- This sets the `initializationOptions` sent to the language server
-  -- If you plan on using additional eclipse.jdt.ls plugins like java-debug
-  -- you'll need to set the `bundles`
-  --
-  -- See https://codeberg.org/mfussenegger/nvim-jdtls#java-debug-installation
-  --
-  -- If you don't plan on any eclipse.jdt.ls plugins you can remove this
-  init_options = {
-    bundles = get_bundles()
-  },
-  on_attach = function ()
-    set_jdtls_test_keymap()
-  end,
-}
-require('jdtls').start_or_attach(config)
+    -- Here you can configure eclipse.jdt.ls specific settings
+    -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+    -- for a list of options
+    settings = {
+      java = {
+        updateBuildConfiguration = "interactive",
+        format = {
+          enabled = true,
+          settings = {
+            url = formatter_path,
+            profile = 'GoogleStyle',
+          }
+        }
+      }
+    },
+
+
+    -- This sets the `initializationOptions` sent to the language server
+    -- If you plan on using additional eclipse.jdt.ls plugins like java-debug
+    -- you'll need to set the `bundles`
+    --
+    -- See https://codeberg.org/mfussenegger/nvim-jdtls#java-debug-installation
+    --
+    -- If you don't plan on any eclipse.jdt.ls plugins you can remove this
+    init_options = {
+      bundles = get_bundles()
+    },
+    on_attach = function()
+      set_jdtls_test_keymap()
+    end,
+  }
+
+  require('jdtls').start_or_attach(config)
+end
+
+main()
