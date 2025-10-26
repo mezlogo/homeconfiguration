@@ -140,9 +140,9 @@ local function main()
       java = {
         updateBuildConfiguration = "interactive",
         format = {
-          enabled = true,
+          enabled = false,
           settings = {
-            url = formatter_path,
+            url = 'file:///home/mezlogo/google-formatter-eclipse.xml',
             profile = 'GoogleStyle',
           }
         }
@@ -168,4 +168,14 @@ local function main()
   require('jdtls').start_or_attach(config)
 end
 
+local function fixIndent()
+  vim.opt.tabstop = 2
+  vim.opt.softtabstop = 2
+  vim.opt.shiftwidth = 2
+  vim.opt.expandtab = true
+  vim.opt.autoindent = true
+  vim.opt.smartindent = true
+end
+
 main()
+fixIndent()
