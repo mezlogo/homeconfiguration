@@ -97,6 +97,23 @@ local function get_jdtls_cache_dir(root_dir)
   return jdtls_dir
 end
 
+local root_markers = {
+  -- Multi-module projects
+  'mvnw', -- Maven
+  'gradlew', -- Gradle
+  'settings.gradle', -- Gradle
+  'settings.gradle.kts', -- Gradle
+  -- Use git directory as last resort for multi-module maven projects
+  -- In multi-module maven projects it is not really possible to determine what is the parent directory
+  -- and what is submodule directory. And jdtls does not break if the parent directory is at higher level than
+  -- actual parent pom.xml so propagating all the way to root git directory is fine
+  '.git',
+  -- Single-module projects
+  'build.xml', -- Ant
+  'pom.xml', -- Maven
+  'build.gradle', -- Gradle
+  'build.gradle.kts', -- Gradle
+}
 
 local function main()
   local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
@@ -121,7 +138,7 @@ local function main()
 
     -- `root_dir` must point to the root of your project.
     -- See `:help vim.fs.root`
-    root_dir = vim.fs.root(0, { 'gradlew', 'mvnw', 'settings.gradle', 'settings.gradle.kts', 'pom.xml' }),
+    root_dir = vim.fs.root(0, root_markers),
 
 
     -- Here you can configure eclipse.jdt.ls specific settings
