@@ -28,7 +28,7 @@ end
 return {
   'mfussenegger/nvim-jdtls',
   lazy = false,
-  -- enabled = true,
+  enabled = false,
   -- ft = 'java',
   -- config = config_nvim_jdtls,
   config = function() end,

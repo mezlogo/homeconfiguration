@@ -81,7 +81,7 @@ local function get_jdtls_cache_dir(root_dir)
   -- Use XDG_CACHE_HOME if set, otherwise default to ~/.cache
   local xdg_cache = os.getenv("XDG_CACHE_HOME")
   local cache_home = xdg_cache and xdg_cache ~= "" and xdg_cache
-      or (os.getenv("HOME") and os.getenv("HOME") .. "/.cache")
+  or (os.getenv("HOME") and os.getenv("HOME") .. "/.cache")
 
   if not cache_home then
     error("Could not determine cache directory: $HOME is not set")
@@ -90,17 +90,8 @@ local function get_jdtls_cache_dir(root_dir)
   -- Normalize root_dir to avoid issues with trailing slashes
   root_dir = vim.fs.normalize(root_dir)
 
-  -- Create a safe, unique subdirectory name from the project root path
-  -- Using SHA256 hash is robust, but fallback to simple basename if hashing isn't available
-  local project_name
-  local has_sha256, sha256 = pcall(vim.fn.sha256, root_dir)
-  if has_sha256 and type(sha256) == "string" then
-    project_name = sha256:sub(1, 16) -- Use first 16 chars of SHA256
-  else
-    -- Fallback: use basename and sanitize
-    project_name = vim.fn.fnamemodify(root_dir, ":t")
-    project_name = vim.fn.substitute(project_name, "[^a-zA-Z0-9._-]", "_", "g")
-  end
+  local project_name = vim.fn.fnamemodify(root_dir, ":t")
+  project_name = vim.fn.substitute(project_name, "[^a-zA-Z0-9._-]", "_", "g")
 
   local jdtls_dir = cache_home .. "/jdtls/" .. project_name
   return jdtls_dir
