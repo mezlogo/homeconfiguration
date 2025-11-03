@@ -51,7 +51,7 @@ local function getDapKeyBindigsInLazyNvimTableFormat()
     -- { '<leader>dR', function() require('dap').restart() end, desc = 'Restart debugging session' },
     { '<leader>dR', ':DapNew<CR>', desc = 'Restart debugging session' },
     { '<leader>dr', function() require('dap').run_last() end, desc = 'Run last session' },
-    { '<leader>dq', function() require('dap').close() end, desc = 'Stop/close debugging session' },
+    { '<leader>dq', function() require('dap').terminate() end, desc = 'Terminate process' },
     { '<leader>dl', function() require('dap-view').toggle() end, desc = 'Toggle dap-view' },
   }
 end
