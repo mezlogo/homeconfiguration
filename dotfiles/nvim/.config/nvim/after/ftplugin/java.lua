@@ -74,6 +74,44 @@ local function get_bundles()
   return bundles
 end
 
+--- Find file with name
+--- At this moment this file has name ~/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.7.100.v20251111-0406.jar
+--- But I want to write code supported both: dynamic jar version AND mason package locaction
+--- That's why first I get path of mason inside 'data'
+--- Then I search file using globing org.eclipse.equinox.launcher_*.jar
+---@return string|nil path to the launcher jar
+local function find_launcher_jar()
+  local mason_path = vim.fn.stdpath('data') .. '/mason/packages/jdtls/plugins/'
+  local launcher_jar = vim.fn.glob(mason_path .. 'org.eclipse.equinox.launcher_*.jar')
+  if launcher_jar == '' then
+    return nil
+  end
+  return launcher_jar
+end
+
+--- Find a directory with exact name 'config_linux', not 'config_linux_arm'
+--- Right now file is located at ~/.local/share/nvim/mason/packages/jdtls/config_linux
+--- By I would use direcotry search inside mason
+---@return string|nil path to the config_linux directory
+local function find_config_linux_dir(config_name)
+  local mason_path = vim.fn.stdpath('data') .. '/mason/packages/jdtls/'
+  local config_dir = vim.fn.glob(mason_path .. config_name)
+  if config_dir == '' then
+    return nil
+  end
+  return config_dir
+end
+
+--- Find lombok.jar file inside jdtls mason package
+---@return string|nil path to the lombok.jar file
+local function find_lombok_jar()
+  local mason_path = vim.fn.stdpath('data') .. '/mason/packages/jdtls/lombok.jar'
+  if vim.fn.filereadable(mason_path) == 0 then
+    return nil
+  end
+  return mason_path
+end
+
 --- Creates a project-specific jdtls index/cache directory path in the user's cache directory.
 ---@param root_dir string The root directory of the Java project.
 ---@return string The full path to the jdtls cache directory for this project.
@@ -116,8 +154,11 @@ local root_markers = {
 }
 
 local function main()
+  local launch_jar = find_launcher_jar()
+  local config_dir = find_config_linux_dir('config_linux')
   local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-  local jdtls_cache_dir = get_jdtls_cache_dir(project_name)
+  local data_dir = get_jdtls_cache_dir(project_name)
+  local lombok_jar = find_lombok_jar()
   local formatter_path = find_eclipse_formatter_xml()
 
   local config = {
@@ -131,10 +172,12 @@ local function main()
     -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 
     cmd = {
-      "jdtls",
-      "-data", jdtls_cache_dir,
+      "myjdtls",
+      launch_jar,
+      config_dir,
+      data_dir,
+      lombok_jar,
     },
-
 
     -- `root_dir` must point to the root of your project.
     -- See `:help vim.fs.root`

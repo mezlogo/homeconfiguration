@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Generate help if first arg is help or no args
+if [ "$1" = "help" ] || [ -z "$1" ]; then
+	echo "Usage: $0 <path_to_jdtls_launcher_jar> <path_to_jdtls_config> <path_to_jdtls_data> <path_to_lombok_jar>"
+	exit 0
+fi
+
+# Take path to jdtls jar as a first command line argument
+# ./plugins/org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar 
+JDTLS_LAUNCHER_JAR="$1"
+
+# Validate it exist
+if [ ! -f "$JDTLS_LAUNCHER_JAR" ]; then
+	echo "JDTLS_LAUNCHER_JAR not found: $JDTLS_LAUNCHER_JAR"
+	exit 1
+fi
+
+# Take path to configuration as a second command line argument
+# ./config_linux
+JDTLS_CONFIG="$2"
+
+# Validate
+if [ ! -d "$JDTLS_CONFIG" ]; then
+	echo "JDTLS_CONFIG not found: $JDTLS_CONFIG"
+	exit 1
+fi
+
+# Take path to workspace folder as a third argument
+JDTLS_DATA="$3"
+
+# Validate it is just not empty string, cos dir could not be exist yet
+if [ -z "$JDTLS_DATA" ]; then
+	echo "JDTLS_DATA not found: $JDTLS_DATA"
+	exit 1
+fi
+
+# Take path to lombok.jar as forth
+JDTLS_LOMBOK="$4"
+
+# Validate it exist
+if [ ! -f "$JDTLS_LOMBOK" ]; then
+	echo "JDTLS_LOMBOK not found: $JDTLS_LOMBOK"
+	exit 1
+fi
+
+java \
+	-Declipse.application=org.eclipse.jdt.ls.core.id1 \
+	-Dosgi.bundles.defaultStartLevel=4 \
+	-Declipse.product=org.eclipse.jdt.ls.core.product \
+	-Dlog.level=ALL \
+	-Xmx1G \
+	--add-modules=ALL-SYSTEM \
+	--add-opens java.base/java.util=ALL-UNNAMED \
+	--add-opens java.base/java.lang=ALL-UNNAMED \
+	-jar "$JDTLS_LAUNCHER_JAR" \
+	-configuration "$JDTLS_CONFIG" \
+	-data "$JDTLS_DATA" \
+    -javaagent:"$JDTLS_LOMBOK"
