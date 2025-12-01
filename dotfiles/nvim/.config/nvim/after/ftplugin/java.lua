@@ -196,6 +196,15 @@ local function main()
             url = 'file:///home/mezlogo/google-formatter-eclipse.xml',
             profile = 'GoogleStyle',
           }
+        },
+        jdt = {
+          ls = {
+            lombokSupport = { enabled = true },
+            protobufSupport = { enabled = true },
+            androidSupport = { enabled = true },
+            appcds = { enabled = true },
+            javac = { enabled = false },
+          }
         }
       }
     },

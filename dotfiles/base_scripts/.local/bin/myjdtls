@@ -49,6 +49,7 @@ exec java \
     --add-opens java.base/java.util=ALL-UNNAMED \
     --add-opens java.base/java.lang=ALL-UNNAMED \
     --add-opens java.base/sun.nio.fs=ALL-UNNAMED \
+    -javaagent:"$JDTLS_LOMBOK" \
     -Declipse.application=org.eclipse.jdt.ls.core.id1 \
     -Dosgi.bundles.defaultStartLevel=4 \
     -Declipse.product=org.eclipse.jdt.ls.core.product \
@@ -62,8 +63,7 @@ exec java \
     -Xms100m \
     -jar "$JDTLS_LAUNCHER_JAR" \
     -configuration "$JDTLS_CONFIG" \
-    -data "$JDTLS_DATA" \
-    -javaagent:"$JDTLS_LOMBOK"
+    -data "$JDTLS_DATA"
 
     # -Dlog.level=ALL \
 
