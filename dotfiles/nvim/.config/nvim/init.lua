@@ -31,7 +31,7 @@ vim.cmd([[colorscheme kanagawa]])
 -- end, {})
 
 -- vim.lsp.enable('jinja_lsp')
--- vim.lsp.enable('kotlin_lsp')
+vim.lsp.enable('kotlin_lsp')
 vim.lsp.enable('nvimls')
 
-vim.lsp.set_log_level(vim.log.levels.TRACE)
+vim.lsp.set_log_level(vim.log.levels.INFO)
