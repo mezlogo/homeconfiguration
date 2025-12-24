@@ -35,3 +35,15 @@ vim.lsp.enable('kotlin_lsp')
 vim.lsp.enable('nvimls')
 
 vim.lsp.set_log_level(vim.log.levels.INFO)
+
+-- In your `init.lua` or filetype plugin
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text" },
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = "en_gb"
+
+    vim.opt_local.dictionary = "/usr/share/dict/british-english"
+    vim.opt_local.complete:append("k")  -- 'k' enables dictionary completion
+  end,
+})
