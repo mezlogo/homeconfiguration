@@ -141,11 +141,6 @@ local root_markers = {
   'gradlew', -- Gradle
   'settings.gradle', -- Gradle
   'settings.gradle.kts', -- Gradle
-  -- Use git directory as last resort for multi-module maven projects
-  -- In multi-module maven projects it is not really possible to determine what is the parent directory
-  -- and what is submodule directory. And jdtls does not break if the parent directory is at higher level than
-  -- actual parent pom.xml so propagating all the way to root git directory is fine
-  '.git',
   -- Single-module projects
   'build.xml', -- Ant
   'pom.xml', -- Maven
