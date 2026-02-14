@@ -47,3 +47,5 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.complete:append("k")  -- 'k' enables dictionary completion
   end,
 })
+
+require('myscratch').setup()
