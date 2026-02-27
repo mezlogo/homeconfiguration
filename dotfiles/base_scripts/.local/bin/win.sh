@@ -31,3 +31,4 @@ qemu-system-x86_64 \
   -name "Windows" \
   -net nic -net user,hostname=windowsvm,smb=$HOME/samba \
   "$@"
+
