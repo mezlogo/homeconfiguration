@@ -29,4 +29,10 @@ return {
     provideFormatter = true,
   },
   root_markers = { '.git' },
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
 }
