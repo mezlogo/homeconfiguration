@@ -36,7 +36,7 @@ vim.lsp.enable('nvimls')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('protols')
 
-vim.lsp.set_log_level(vim.log.levels.INFO)
+-- vim.lsp.log.set_level('debug');
 
 -- In your `init.lua` or filetype plugin
 vim.api.nvim_create_autocmd("FileType", {
