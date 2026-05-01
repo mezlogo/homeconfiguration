@@ -17,7 +17,7 @@ if status is-interactive
 
     user_key_bindings
 
-    eval "$(mise activate)"
+    eval "$(mise activate fish)"
 end
 
 fish_add_path -g ~/.local/bin
