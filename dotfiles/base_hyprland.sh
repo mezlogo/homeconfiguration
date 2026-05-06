@@ -24,9 +24,8 @@ yay -S --needed --noconfirm \
 	obsidian \
 	telegram-desktop \
 	visual-studio-code-bin \
-	brave-bin chromium firefox \
+	chromium firefox \
 	keepassxc \
-	nekoray-bin \
 	wlr-randr \
 	uwsm libnewt \
 	sddm \
