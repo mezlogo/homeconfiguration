@@ -63,6 +63,7 @@ return {
   lazy = false,
   branch = "master",
   build = ":TSUpdate",
+  branch = "main",
   config = function()
     local configs = require("nvim-treesitter.configs")
     configs.setup(opts)
