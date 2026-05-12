@@ -8,3 +8,4 @@ export GDK_BACKEND=wayland
 export SDL_VIDEODRIVER=wayland
 export CLUTTER_BACKEND=wayland
 
+export UWSM_SKIP_MAY_START_CHECK=1
