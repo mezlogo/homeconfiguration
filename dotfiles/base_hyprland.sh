@@ -36,7 +36,6 @@ yay -S --needed --noconfirm \
 	qt5-wayland qt6-wayland \
 	xdg-desktop-portal-hyprland \
 	grim slurp satty \
-	openconnect \
     mise npm go rust cargo \
 	qemu-full samba spice-gtk virt-viewer \
 	jdk17-openjdk jdk21-openjdk openjdk21-src maven gradle \
