@@ -1,0 +1,81 @@
+Setting $HOME to /home/mezlogo/tools/hiddify/Hiddify.AppImage.home
+Gdk-Message: 19:58:19.559: Unable to load  from the cursor theme
+19:58:19.586713 [INFO]     [bootstrap] initializing [directories]
+19:58:19.589808 [DEBUG]    [bootstrap] [directories] initialized in 3ms
+19:58:19.590035 [INFO]     [bootstrap] initializing [app info]
+19:58:19.597419 [DEBUG]    [bootstrap] [app info] initialized in 7ms
+19:58:19.597466 [INFO]     [bootstrap] initializing [preferences]
+19:58:19.597498 [DEBUG]    [preferences] initializing preferences
+19:58:19.597846 [DEBUG]    [bootstrap] [preferences] initialized in 0ms
+19:58:19.597910 [INFO]     [bootstrap] initializing [preferences migration]
+19:58:19.597933 [DEBUG]    [PreferencesMigration] already using the latest version (v1)
+19:58:19.597950 [DEBUG]    [bootstrap] [preferences migration] initialized in 0ms
+19:58:19.597984 [INFO]     [bootstrap] initializing [window controller]
+19:58:19.599313 [DEBUG]    [WindowNotifier] window state. maximized: true
+19:58:19.599360 [DEBUG]    [WindowNotifier] window state. size: Instance of 'Size'
+19:58:19.600975 [DEBUG]    [WindowNotifier] window state. position: Instance of 'Offset'
+19:58:19.601008 [DEBUG]    [WindowNotifier] window state. silent start: Disabled
+19:58:19.609294 [DEBUG]    [WindowNotifier] restoring window to position: Instance of 'Offset'
+19:58:19.610511 [DEBUG]    [WindowNotifier] restoring window to maximized state
+19:58:19.613181 [DEBUG]    [WindowNotifier] showing app window on start
+19:58:19.613225 [DEBUG]    [bootstrap] [window controller] initialized in 15ms
+19:58:19.613243 [DEBUG]    [bootstrap] silent start [Disabled]
+19:58:19.679971 [INFO]     [bootstrap] initializing [auto start service]
+19:58:19.680159 [INFO]     [AutoStartNotifier] auto start is [Disabled]
+19:58:19.680277 [DEBUG]    [bootstrap] [auto start service] initialized in 0ms
+19:58:19.680301 [INFO]     [bootstrap] initializing [logs repository]
+19:58:19.681069 [DEBUG]    [bootstrap] [logs repository] initialized in 0ms
+19:58:19.681099 [INFO]     [bootstrap] initializing [logger controller]
+19:58:19.681127 [INFO]     [bootstrap] hiddify v4.1.1 (40101) [prod]
+general release
+linux [Linux 6.18.34-1-lts #1 SMP PREEMPT_DYNAMIC Tue, 02 Jun 2026 14:14:47 +0000]
+19:58:19.681142 [INFO]     [bootstrap] initializing [profile repository]
+19:58:19.682036 [INFO]     [bootstrap] initializing [translations]
+19:58:19.682287 [INFO]     [bootstrap] initializing [active profile]
+19:58:19.688728 [INFO]     [bootstrap] initializing [hiddify-core]
+[37mDEBUG[0m[0000] H CORE libbox.Setup success /home/mezlogo/.local/share/app.hiddify.com /home/mezlogo/.local/share/app.hiddify.com /tmp true
+[37mDEBUG[0m[0000] H CORE StartGrpcServerByMode 127.0.0.1:17078 3
+[37mDEBUG[0m[0000] H CORE grpcServer started on 127.0.0.1:17078
+[36mINFO[0m[0000] Server listening on %s127.0.0.1:17078
+[37mDEBUG[0m[0000] H CORE HiddifySettingsJson&{HiddifySettingsJson {"region":"ru","balancer-strategy":"round-robin","block-ads":false,"use-xray-core-when-possible":false,"execute-config-as-is":false,"log-level":"warn","resolve-destination":false,"ipv6-mode":"ipv4_only","remote-dns-address":"tcp://8.8.8.8","remote-dns-domain-strategy":"","direct-dns-address":"1.1.1.1","direct-dns-domain-strategy":"","mixed-port":2080,"tproxy-port":12335,"direct-port":12337,"redirect-port":12336,"tun-implementation":"gvisor","mtu":9000,"strict-route":true,"connection-test-url":"http://captive.apple.com/hotspot-detect.html","url-test-interval":600,"enable-clash-api":true,"clash-api-port":16756,"enable-tun":false,"set-system-proxy":false,"bypass-lan":false,"allow-connection-from-lan":true,"enable-fake-dns":false,"independent-dns-cache":true,"rules":[],"tls-tricks":{"enable-fragment":false,"fragment-size":"10-30","fragment-sleep":"2-8","mixed-sni-case":false,"enable-padding":false,"padding-size":"1-1500"},"warp":{"enable":false,"mode":"warp_over_proxy","wireguard-config":"","license-key":"","account-id":"","access-token":"","clean-ip":"auto","clean-port":0,"noise":"1-3","noise-size":"10-30","noise-delay":"10-30","noise-mode":"m4"},"warp2":{"enable":false,"mode":"warp_over_proxy","wireguard-config":"","license-key":"","account-id":"","access-token":"","clean-ip":"auto","clean-port":0,"noise":"1-3","noise-size":"10-30","noise-delay":"10-30","noise-mode":"m4"}}} <nil>
+19:58:19.842408 [INFO]     [CoreInterfaceDesktop] message: Hello, test
+
+19:58:19.842739 [INFO]     [HiddifyCoreService] Hiddify-core setup done
+19:58:19.842870 [INFO]     [bootstrap] initializing [system tray]
+19:58:19.843893 [ERROR]    [HiddifyCoreService] status
+19:58:19.843972 [INFO]     [ConnectionNotifier] connection status: DISCONNECTED
+19:58:19.844075 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:19.848705 [INFO]     [bootstrap] bootstrap took [262ms]
+19:58:19.851605 [INFO]     [App] current app state
+19:58:19.851655 [INFO]     [App] AppLifecycleState.resumed
+dynamic_color: Accent color detected.
+19:58:19.865991 [INFO]     [ConnectionNotifier] connection status: DISCONNECTED
+19:58:19.866201 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:19.948367 [INFO]     [CoreInterfaceDesktop] core is already started!
+19:58:19.948519 [ERROR]    [HiddifyCoreService] status
+19:58:19.948568 [INFO]     [ConnectionNotifier] connection status: DISCONNECTED
+19:58:19.948661 [INFO]     [HiddifyCoreService] Hiddify-core setup done
+19:58:19.949827 [ERROR]    [HiddifyCoreService] status
+19:58:19.949852 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:19.949890 [INFO]     [ConnectionNotifier] connection status: DISCONNECTED
+19:58:19.972131 [INFO]     [ConnectionNotifier] connection status: DISCONNECTED
+19:58:19.972358 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:20.709235 [INFO]     [CoreInterfaceDesktop] core is already started!
+19:58:20.709510 [ERROR]    [HiddifyCoreService] status
+19:58:20.709598 [INFO]     [ConnectionNotifier] connection status: DISCONNECTED
+19:58:20.710247 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:20.732731 [INFO]     [ConnectionNotifier] connection status: DISCONNECTED
+19:58:20.733016 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:20.744512 [INFO]     [ConnectionNotifier] connection status: CONNECTING
+19:58:20.744852 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:20.745071 [INFO]     [ConnectionNotifier] connection status: CONNECTING
+19:58:20.745281 [WARNING]  [SystemTrayNotifier] error getting active proxy
+Saving config to /home/mezlogo/.local/share/app.hiddify.com/data/current-config.json <nil>
+19:58:20.797299 [ERROR]    [HiddifyCoreService] status
+19:58:20.797378 [WARNING]  [SystemTrayNotifier] error getting active proxy
+19:58:20.797490 [INFO]     [ConnectionNotifier] connection status: CONNECTED
+19:58:20.797880 [INFO]     [HiddifyCoreService] watching active groups
+19:58:20.798217 [INFO]     [ConnectionNotifier] connection status: CONNECTED
+19:58:22.756510 [INFO]     [App] current app state
+19:58:22.756655 [INFO]     [App] AppLifecycleState.hidden
+Gdk-Message: 21:29:25.575: Error reading events from display: Broken pipe
